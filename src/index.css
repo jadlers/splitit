@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.app * {
+  z-index: 50;
+}
+
+.animate-wiggle {
+  animation: wiggle 0.25s infinite;
+}
+
+@keyframes wiggle {
+  /* 0% { */
+  /*   transform: translateX(0); */
+  /* } */
+  25% {
+    transform: translateX(-3%);
+    animationtimingfunction: ease-in;
+    /* animationtimingfunction: cubic-bezier(0.8, 0, 1, 1); */
+  }
+  75% {
+    transform: translateX(3%);
+    animationtimingfunction: ease-in;
+    /* animationtimingfunction: cubic-bezier(0, 0, 0.2, 1); */
+  }
+}
