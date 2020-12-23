@@ -1,9 +1,11 @@
 import React from "react";
 
+import Receipt from "./Receipt";
+
 function App() {
   return (
     <div className="App">
-      <p>Start</p>
+      <Receipt />
     </div>
   );
 }
