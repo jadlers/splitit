@@ -20,19 +20,21 @@ export default function PersonalExpences({ name, setTotal }) {
 
   return (
     <div>
-      <p>{`Endast ${name}:`}</p>
       <form onSubmit={handleSubmit}>
-        <input
-          type="number"
-          value={next}
-          step="0.01"
-          onChange={(e) => setNext(e.target.value)}
-          className="border-2 border-gray-400"
-        />
+        <label>
+          {`Endast ${name}:`}
+          <input
+            type="number"
+            value={next}
+            step="0.01"
+            onChange={(e) => setNext(e.target.value)}
+            className="ml-2 border-b-2 border-yellow-400"
+          />
+        </label>
       </form>
-      <ul>
+      <ul className="list-inside list-disc">
         {expences.map((e, i) => (
-          <li key={e.id}>{e.val}</li>
+          <li key={e.id}>{e.val}kr</li>
         ))}
       </ul>
     </div>
