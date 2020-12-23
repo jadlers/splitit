@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import PersonalExpences from "./PersonalExpences";
 
@@ -7,21 +7,9 @@ export default function Receipt() {
   const [personalSis, setPersonalSis] = useState(0);
   const [personalDag, setPersonalDag] = useState(0);
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log({ total });
-  // };
-
-  const each = (total - (personalDag + personalSis)) / 2;
-  const sisPart = each + personalSis;
-  const dagPart = each + personalDag;
-
-  useEffect(() => {
-    const each = (total - (personalDag + personalSis)) / 2;
-    const sisPart = each + personalSis;
-    const dagPart = each + personalDag;
-    console.log({ total, personalSis, personalDag, sisPart, dagPart });
-  }, [total, personalSis, personalDag]);
+  const bothPart = (total - (personalDag + personalSis)) / 2;
+  const sisPart = bothPart + personalSis;
+  const dagPart = bothPart + personalDag;
 
   return (
     <div>
@@ -34,8 +22,30 @@ export default function Receipt() {
       />
       <PersonalExpences name="Dag" setTotal={setPersonalDag} />
       <PersonalExpences name="Åsa" setTotal={setPersonalSis} />
-      <p>{`Dag: ${dagPart}kr. Gemensamt ${each}kr & personligt ${personalDag}kr`}</p>
-      <p>{`Sis: ${sisPart}kr. Gemensamt ${each}kr & personligt ${personalSis}kr`}</p>
+      <table>
+        <thead>
+          <tr>
+            <td>Person</td>
+            <td>Gemensamt</td>
+            <td>Personligt</td>
+            <td>Totalt</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Dag</td>
+            <td>{bothPart}</td>
+            <td>{dagPart}</td>
+            <td>{bothPart + dagPart}</td>
+          </tr>
+          <tr>
+            <td>Åsa</td>
+            <td>{bothPart}</td>
+            <td>{sisPart}</td>
+            <td>{bothPart + sisPart}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   );
 }
