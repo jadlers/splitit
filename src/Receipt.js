@@ -1,17 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import PersonalExpences from "./PersonalExpences";
 import OverviewTable from "./OverviewTable";
 
-export default function Receipt() {
+export default function Receipt({ id, saveInfo }) {
   const [total, setTotal] = useState(0);
-  const [sisOnly, setPersonalSis] = useState(0);
   const [dagOnly, setPersonalDag] = useState(0);
+  const [sisOnly, setPersonalSis] = useState(0);
 
   const both = (total - (dagOnly + sisOnly)) / 2;
 
+  useEffect(() => {
+    saveInfo(both, dagOnly, sisOnly);
+  }, [both, dagOnly, sisOnly]);
+
   return (
     <div className="flex flex-col space-y-4 my-4 px-4 text-center">
+      <p>{`Kvitto #${id}`}</p>
       <label>
         Kvitto totalt:
         <input
