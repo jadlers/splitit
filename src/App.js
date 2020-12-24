@@ -6,10 +6,9 @@ import OverviewTable from "./OverviewTable";
 
 function App() {
   const [receipts, setReceipts] = useState({
-    0: { both: 0, dag: 0, sis: 0 },
     1: { both: 0, dag: 0, sis: 0 },
   });
-  const [nextIdx, setNextIdx] = useState(1);
+  const [nextIdx, setNextIdx] = useState(2);
 
   const bothTotal = Object.values(receipts).reduce(
     (acc, { both }) => acc + both,
@@ -50,8 +49,12 @@ function App() {
         >
           Nytt kvitto
         </button>
-        <p>Summa summarum landade kalasen på</p>
-        <p className="font-bold">{`Totalt: ${2 * bothTotal + 0 + 0}kr`}</p>
+        <p>
+          Summa summarum landade kalasen på{" "}
+          <span className="font-bold">
+            {`totalt ${2 * bothTotal + dagTotal + sisTotal}kr`}
+          </span>
+        </p>
         <OverviewTable both={bothTotal} dagOnly={dagTotal} sisOnly={sisTotal} />
       </main>
     </>

@@ -16,7 +16,7 @@ export default function Receipt({ id, saveInfo }) {
 
   return (
     <div className="flex flex-col space-y-4 my-4 px-4 text-center">
-      <p>{`Kvitto #${id}`}</p>
+      <p className="text-xl font-semibold">{`Kvitto #${id}`}</p>
       <label>
         Kvitto totalt:
         <input
