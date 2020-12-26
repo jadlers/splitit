@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import PersonalExpences from "./PersonalExpences";
 import OverviewTable from "./OverviewTable";
 
-export default function Receipt({ id, saveInfo }) {
+export default function Receipt({ id, saveInfo, showOverview }) {
   const [total, setTotal] = useState(0);
   const [dagOnly, setPersonalDag] = useState(0);
   const [sisOnly, setPersonalSis] = useState(0);
@@ -28,7 +28,9 @@ export default function Receipt({ id, saveInfo }) {
       </label>
       <PersonalExpences name="Dag" setTotal={setPersonalDag} />
       <PersonalExpences name="Åsa" setTotal={setPersonalSis} />
-      <OverviewTable both={both} dagOnly={dagOnly} sisOnly={sisOnly} />
+      {showOverview && (
+        <OverviewTable both={both} dagOnly={dagOnly} sisOnly={sisOnly} />
+      )}
     </div>
   );
 }

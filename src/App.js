@@ -9,6 +9,7 @@ function App() {
     1: { both: 0, dag: 0, sis: 0 },
   });
   const [nextIdx, setNextIdx] = useState(2);
+  const [showOverviews, setShowOverviews] = useState(false);
 
   const bothTotal = Object.values(receipts).reduce(
     (acc, { both }) => acc + both,
@@ -37,15 +38,26 @@ function App() {
   return (
     <>
       <Header />
-      <main className="min-h-screen py-4 bg-yellow-100 text-center">
+      <main className="min-h-screen py-4 bg-yellow-50 text-center">
         {Object.keys(receipts)
           .sort()
           .map((rec) => (
-            <Receipt key={rec} id={rec} saveInfo={createSaveInfoFn(rec)} />
+            <Receipt
+              key={rec}
+              id={rec}
+              saveInfo={createSaveInfoFn(rec)}
+              showOverview={showOverviews}
+            />
           ))}
         <button
+          onClick={() => setShowOverviews(!showOverviews)}
+          className="py-2 px-4 rounded pointer bg-yellow-200 text-gray-800 font-bold"
+        >
+          {showOverviews ? "Dölj översikter" : "Visa översikter"}
+        </button>
+        <button
           onClick={addReceipt}
-          className="py-2 px-4 rounded pointer bg-yellow-400 font-bold"
+          className="py-2 px-4 ml-4 rounded pointer bg-yellow-400 font-bold"
         >
           Nytt kvitto
         </button>
