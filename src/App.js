@@ -6,7 +6,7 @@ import OverviewTable from "./OverviewTable";
 
 function App() {
   const [receipts, setReceipts] = useState({
-    1: { both: 0, dag: 0, sis: 0 },
+    1: { both: 0, dag: 0, sis: 0, sisPaid: true },
   });
   const [nextIdx, setNextIdx] = useState(2);
   const [showOverviews, setShowOverviews] = useState(false);
@@ -23,10 +23,15 @@ function App() {
     (acc, { sis }) => acc + sis,
     0
   );
+  const total = 2 * bothTotal + dagTotal + sisTotal;
+
+  const sisPaid = Object.values(receipts)
+    .filter((r) => r.sisPaid)
+    .reduce((acc, { both, dag, sis }) => acc + 2 * both + dag + sis, 0);
 
   const createSaveInfoFn = (key) => {
-    return (both, dag, sis) => {
-      setReceipts({ ...receipts, [key]: { both, dag, sis } });
+    return (both, dag, sis, sisPaid) => {
+      setReceipts({ ...receipts, [key]: { both, dag, sis, sisPaid } });
     };
   };
 
@@ -61,13 +66,19 @@ function App() {
         >
           Nytt kvitto
         </button>
-        <p>
-          Summa summarum landade kalasen på{" "}
-          <span className="font-bold">
-            {`totalt ${2 * bothTotal + dagTotal + sisTotal}kr`}
-          </span>
+        <p className="mt-6">
+          Summa summarum landade kalasen på
+          <span className="font-bold">{` totalt ${total}kr. `}</span>
         </p>
         <OverviewTable both={bothTotal} dagOnly={dagTotal} sisOnly={sisTotal} />
+        <p>
+          Åsa betalade totalt {sisPaid}kr & Dag {total - sisPaid}kr.
+        </p>
+        <p>
+          {sisPaid > bothTotal + sisTotal
+            ? `Dag skyldig Åsa ${sisPaid - (bothTotal + sisTotal)}kr.`
+            : `Åsa skyldig Dag ${bothTotal + sisTotal - sisPaid}kr.`}
+        </p>
       </main>
     </>
   );
