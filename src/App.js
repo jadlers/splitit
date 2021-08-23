@@ -45,7 +45,7 @@ function App() {
       <Header />
       <main className="min-h-screen py-4 bg-yellow-50 text-center">
         {Object.keys(receipts)
-          .sort()
+          .sort((a, b) => Number(a) > Number(b))
           .map((rec) => (
             <Receipt
               key={rec}
